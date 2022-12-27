@@ -3,6 +3,13 @@ import { HEIGHT, WIDTH } from './constants';
 import { inputTheme } from './input-theme';
 
 export const theme = extendTheme({
+  global: {
+    styles: {
+      '*': {
+        boxSizing: 'border-box',
+      },
+    },
+  },
   components: {
     Button: {
       baseStyle: {
@@ -26,8 +33,19 @@ export const theme = extendTheme({
     Text: {
       baseStyle: {
         color: 'gray.500',
+      },
+    },
+    FormLabel: {
+      baseStyle: {
+        color: 'gray.500',
+      },
+    },
+    CloseButton: {
+      baseStyle: {
+        border: 'none',
       }
-    }
+    },
+
   },
 });
 

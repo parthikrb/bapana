@@ -1,7 +1,8 @@
 'use client';
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import Login from '../components/login/login';
-import { Box, Text } from '@chakra-ui/react';
+import { Box, Heading } from '@chakra-ui/react';
 import { useAuth } from '../hooks/use-auth';
 
 const LoginPage = () => {
@@ -13,15 +14,9 @@ const LoginPage = () => {
         justifyContent="center"
         alignItems="center"
       >
-        <Text
-          fontSize="5xl"
-          fontWeight="bold"
-          mb="10px"
-          color="white"
-          textTransform="uppercase"
-        >
+        <Heading size="4xl" color="white">
           Resistor
-        </Text>
+        </Heading>
       </Box>
       <Box bg="white" h="100vh" w="35%">
         <Login />
@@ -32,7 +27,14 @@ const LoginPage = () => {
 
 const Page = () => {
   const { isAuthenticated } = useAuth();
-  return <>{isAuthenticated ? <>Authenticated</> : <LoginPage />}</>;
+  const router = useRouter();
+
+  if (isAuthenticated) {
+    router.replace('/organization');
+    return;
+  }
+
+  return <LoginPage />;
 };
 
 export default Page;
