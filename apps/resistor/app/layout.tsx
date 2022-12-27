@@ -1,8 +1,17 @@
 /* eslint-disable @next/next/no-page-custom-font */
 'use client';
 import { theme } from '@bapana/theme';
-import { ThemeProvider } from '@chakra-ui/react';
+import { ThemeProvider, ToastProvider } from '@chakra-ui/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { AuthProvider } from './hooks/use-auth';
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 60,
+    },
+  },
+});
 export default function RootLayout({
   children,
 }: {
@@ -25,7 +34,19 @@ export default function RootLayout({
           boxSizing: 'border-box',
         }}
       >
-        <ThemeProvider theme={theme}>{children}</ThemeProvider>
+        <ThemeProvider theme={theme}>
+          <ToastProvider
+            defaultOptions={{
+              duration: 3000,
+              isClosable: false,
+              position: 'bottom-left',
+            }}
+          >
+            <QueryClientProvider client={queryClient}>
+              <AuthProvider>{children}</AuthProvider>
+            </QueryClientProvider>
+          </ToastProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

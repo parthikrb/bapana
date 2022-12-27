@@ -23,6 +23,11 @@ export const theme = extendTheme({
       },
     },
     Input: inputTheme,
+    Text: {
+      baseStyle: {
+        color: 'gray.500',
+      }
+    }
   },
 });
 

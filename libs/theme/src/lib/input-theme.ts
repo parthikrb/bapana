@@ -9,8 +9,6 @@ const baseStyle = definePartsStyle({
   field: {
     width: WIDTH,
     height: HEIGHT,
-    border: '1px solid',
-    borderColor: 'gray.200',
   },
 
 })
