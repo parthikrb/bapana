@@ -1,8 +1,8 @@
 'use client';
 import React from 'react';
-import Login from './components/login/login';
+import Login from '../components/login/login';
 import { Box, Text } from '@chakra-ui/react';
-import { useAuth } from './hooks/use-auth';
+import { useAuth } from '../hooks/use-auth';
 
 const LoginPage = () => {
   return (

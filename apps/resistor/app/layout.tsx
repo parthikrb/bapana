@@ -3,7 +3,7 @@
 import { theme } from '@bapana/theme';
 import { ThemeProvider, ToastProvider } from '@chakra-ui/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { AuthProvider } from './hooks/use-auth';
+import { AuthProvider } from '../hooks/use-auth';
 
 const queryClient = new QueryClient({
   defaultOptions: {
