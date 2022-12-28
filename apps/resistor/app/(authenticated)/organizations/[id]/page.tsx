@@ -36,7 +36,7 @@ const OrganizationDetailsPage = ({ params }) => {
           <StyledLink href="/organizations">Organizations</StyledLink>
         </BreadcrumbItem>
         <BreadcrumbItem isCurrentPage>
-          <StyledLink href="#">{id}</StyledLink>
+          <StyledLink href={`/organizations/${id}`}>{id}</StyledLink>
         </BreadcrumbItem>
       </Breadcrumb>
 
