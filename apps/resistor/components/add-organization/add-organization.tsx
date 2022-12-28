@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Box, FormLabel, Input } from '@chakra-ui/react';
 import Drawer from '../../components/drawer/drawer';
-import React, { useEffect, useRef, useState } from 'react';
-import { useMutation } from '@tanstack/react-query';
+import React, { useRef, useState } from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { axios } from '../../utils/axios';
 import { useToast } from '@chakra-ui/react';
 
@@ -18,9 +18,40 @@ const AddOrganization = ({ isOpen, onClose }: IAddOrganizationProps) => {
 
   const toast = useToast();
 
+  const queryClient = useQueryClient();
+
   const organizationMutation = useMutation({
     mutationFn: (data) => {
       return axios.post('/organization/', data);
+    },
+    onSuccess: (newData) => {
+      onClose();
+      setOrganizationName('');
+      queryClient.setQueryData(['organization'], (oldData: any) => {
+        return {
+          ...oldData,
+          data: [...oldData.data, newData.data],
+        };
+      });
+
+      toast({
+        title: 'Organization created successfully.',
+        status: 'success',
+        duration: 3000,
+        isClosable: false,
+        position: 'bottom-left',
+      });
+    },
+
+    onError: () => {
+      toast({
+        title: 'An error occurred.',
+        description: 'Please try again.',
+        status: 'error',
+        duration: 3000,
+        isClosable: false,
+        position: 'bottom-left',
+      });
     },
   });
 
@@ -30,49 +61,6 @@ const AddOrganization = ({ isOpen, onClose }: IAddOrganizationProps) => {
       name: organizationName,
     });
   };
-
-  useEffect(() => {
-    if (organizationMutation.isError) {
-      let errorMessage = 'An error occurred.';
-      if (organizationMutation.error?.response.status === 400) {
-        errorMessage = 'Bad request. Please check the data and try again.';
-      }
-
-      if (organizationMutation.error?.response.status === 500) {
-        errorMessage = 'Internal server error.';
-      }
-
-      if (organizationMutation.error?.response.status === 401) {
-        errorMessage = 'Session Timeout. Please login and try again.';
-      }
-
-      toast({
-        title: errorMessage,
-        status: 'error',
-        duration: 3000,
-        isClosable: false,
-        position: 'bottom-left',
-      });
-    }
-  }, [
-    organizationMutation.error?.response.status,
-    organizationMutation.isError,
-    toast,
-  ]);
-
-  useEffect(() => {
-    if (organizationMutation.isSuccess) {
-      toast({
-        title: 'Organization created successfully.',
-        status: 'success',
-        duration: 3000,
-        isClosable: false,
-        position: 'bottom-left',
-      });
-      setOrganizationName('');
-      onClose();
-    }
-  }, [organizationMutation.isSuccess, onClose, toast]);
 
   return (
     <>

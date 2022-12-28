@@ -8,11 +8,12 @@ import {
   useState,
   useCallback,
 } from 'react';
-import axios from '../utils/axios';
+import jwt_decode from 'jwt-decode';
 import { useToast } from '@chakra-ui/react';
+import axios from '../utils/axios';
 
 export interface IAuthContext {
-  user?: any;
+  userId?: number;
   login: (username: string, password: string) => void;
   logout: () => void;
   isAuthenticated: boolean;
@@ -23,6 +24,8 @@ export const AuthContext = createContext<IAuthContext>(null);
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [authToken, setAuthToken] = useState(null);
+  const [userId, setUserId] = useState(null);
 
   const toast = useToast();
 
@@ -44,6 +47,8 @@ export const AuthProvider = ({ children }) => {
   );
 
   const logout = useCallback(() => {
+    setAuthToken(null);
+    setUserId(null);
     localStorage.removeItem('token');
     setIsAuthenticated(false);
   }, []);
@@ -60,31 +65,57 @@ export const AuthProvider = ({ children }) => {
       });
       logout();
     }
-  }, [loginMutation.isError, toast]);
+  }, [loginMutation.isError, toast, logout]);
 
   useEffect(() => {
     if (loginMutation.isSuccess) {
       setIsAuthenticated(true);
+      setAuthToken(loginMutation.data.data.access);
       localStorage.setItem('token', loginMutation.data.data.access);
+      localStorage.setItem('refresh_token', loginMutation.data.data.refresh);
     }
   }, [loginMutation.isSuccess, loginMutation.data]);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
+    setAuthToken(token);
     if (token) {
       setIsAuthenticated(true);
     }
   }, []);
 
+  useEffect(() => {
+    if (authToken) {
+      const decoded: Record<string, any> = jwt_decode(authToken);
+      setUserId(decoded.user_id);
+      const expirationTime = new Date(decoded.exp * 1000);
+      if (expirationTime < new Date()) {
+        axios
+          .post('/auth/refresh/', {
+            refresh: localStorage.getItem('refresh_token'),
+          })
+          .then((response) => {
+            console.log(
+              '🚀 ~ file: use-auth.tsx:98 ~ .then ~ response',
+              response
+            );
+            setAuthToken(response.data.access);
+            localStorage.setItem('token', response.data.access);
+            localStorage.setItem('refresh_token', response.data.refresh);
+          });
+      }
+    }
+  }, [authToken]);
+
   const value: IAuthContext = useMemo(
     () => ({
-      user: null,
+      userId,
       login,
       logout,
       isAuthenticated,
       isLoading: loginMutation.isLoading,
     }),
-    [isAuthenticated, login, logout, loginMutation.isLoading]
+    [isAuthenticated, login, logout, loginMutation.isLoading, userId]
   );
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

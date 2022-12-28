@@ -1,7 +1,10 @@
 import React from 'react';
-import { Box, Text } from '@chakra-ui/react';
+import { Avatar, AvatarGroup, Box, Text } from '@chakra-ui/react';
+import { Power } from '@styled-icons/typicons';
+import { useAuth } from '../../hooks/use-auth';
 
 const Header = () => {
+  const { logout } = useAuth();
   return (
     <Box
       w="100%"
@@ -15,9 +18,25 @@ const Header = () => {
         boxSizing: 'border-box',
       }}
     >
-      <Text fontSize={'2xl'} fontWeight="bold" color="purple.500">
+      <Text
+        fontSize={'2xl'}
+        fontWeight="bold"
+        color="purple.500"
+        display="flex"
+        flexGrow={1}
+      >
         Resistor
       </Text>
+
+      <AvatarGroup size="md" max={2}>
+        <Avatar name="Parthiban Baskar" bg="purple.500" color="white" />
+        <Avatar
+          bg="red.500"
+          icon={<Power height={36} />}
+          onClick={logout}
+          _hover={{ cursor: 'pointer', bg: 'red.600' }}
+        />
+      </AvatarGroup>
     </Box>
   );
 };

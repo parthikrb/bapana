@@ -43,16 +43,18 @@ const OrganizationPage = () => {
   return (
     <Box position="relative" w="100%" h="calc(100vh - 60px)">
       <AddOrganization isOpen={isOpen} onClose={onClose} />
-      <Text
-        fontSize="2xl"
-        fontWeight="bold"
-        color="purple.500"
-        ml="16px"
-        mt="16px"
-      >
-        Organization
-      </Text>
-      <Box display="flex" flexDirection="row" ml="16px">
+      <Box display='flex'>
+        <Text
+          fontSize="2xl"
+          fontWeight="bold"
+          color="purple.500"
+          ml="16px"
+          mt="16px"
+        >
+          Organization
+        </Text>
+      </Box>
+      <Box display="flex" flexDirection="row" ml="16px" flexWrap="wrap">
         {organizations?.data?.map((organization) => (
           <OrganizationCard
             key={organization.id}
