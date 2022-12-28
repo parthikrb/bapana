@@ -12,7 +12,7 @@ const SideNav = () => {
   const iconHeight = isExpanded ? 16 : 24;
 
   const menuList = [
-    { icon: <Organization height={iconHeight} />, name: 'Organization' },
+    { icon: <Organization height={iconHeight} />, name: 'Organizations' },
     {
       icon: <CalendarWeek height={iconHeight} />,
       name: 'Capacity Planner',

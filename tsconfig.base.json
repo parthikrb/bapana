@@ -15,7 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@bapana/theme": ["libs/theme/src/index.ts"]
+      "@bapana/theme": ["libs/theme/src/index.ts"],
+      "@resistor/utils": ["apps/resistor/utils/index.ts"],
+      "@resistor/api": ["apps/resistor/api/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

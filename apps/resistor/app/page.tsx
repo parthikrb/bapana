@@ -30,7 +30,7 @@ const Page = () => {
   const router = useRouter();
 
   if (isAuthenticated) {
-    router.replace('/organization');
+    router.replace('/organizations');
     return;
   }
 

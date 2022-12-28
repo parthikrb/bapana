@@ -8,6 +8,9 @@ export const theme = extendTheme({
       '*': {
         boxSizing: 'border-box',
       },
+      p: {
+        margin: 0,
+      }
     },
   },
   components: {
@@ -45,7 +48,6 @@ export const theme = extendTheme({
         border: 'none',
       }
     },
-
   },
 });
 

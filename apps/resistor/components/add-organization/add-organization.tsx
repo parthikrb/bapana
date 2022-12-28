@@ -3,7 +3,7 @@ import { Box, FormLabel, Input } from '@chakra-ui/react';
 import Drawer from '../../components/drawer/drawer';
 import React, { useRef, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { axios } from '../../utils/axios';
+import { axios, APIKEYS } from '../../utils';
 import { useToast } from '@chakra-ui/react';
 
 interface IAddOrganizationProps {
@@ -27,7 +27,7 @@ const AddOrganization = ({ isOpen, onClose }: IAddOrganizationProps) => {
     onSuccess: (newData) => {
       onClose();
       setOrganizationName('');
-      queryClient.setQueryData(['organization'], (oldData: any) => {
+      queryClient.setQueryData([APIKEYS.ORGANIZATION], (oldData: any) => {
         return {
           ...oldData,
           data: [...oldData.data, newData.data],

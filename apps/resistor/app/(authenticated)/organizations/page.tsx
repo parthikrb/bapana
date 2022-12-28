@@ -10,8 +10,9 @@ import {
 import { Add } from 'styled-icons/fa-solid';
 import AddOrganization from '../../../components/add-organization/add-organization';
 import { useQuery } from '@tanstack/react-query';
-import { axios } from '../../../utils/axios';
+import { APIKEYS } from '../../../utils';
 import OrganizationCard from '../../../components/organization-card/organization-card';
+import { getOrganization } from '../../../api';
 
 const OrganizationPage = () => {
   const { onOpen, isOpen, onClose } = useDisclosure();
@@ -22,10 +23,8 @@ const OrganizationPage = () => {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ['organization'],
-    queryFn: () => {
-      return axios.get('/organization/');
-    },
+    queryKey: [APIKEYS.ORGANIZATION],
+    queryFn: getOrganization,
   });
 
   useEffect(() => {
@@ -43,7 +42,7 @@ const OrganizationPage = () => {
   return (
     <Box position="relative" w="100%" h="calc(100vh - 60px)">
       <AddOrganization isOpen={isOpen} onClose={onClose} />
-      <Box display='flex'>
+      <Box display="flex">
         <Text
           fontSize="2xl"
           fontWeight="bold"
@@ -58,9 +57,10 @@ const OrganizationPage = () => {
         {organizations?.data?.map((organization) => (
           <OrganizationCard
             key={organization.id}
+            id={organization.id}
             name={organization.name}
-            membersCount={organization.employees?.length}
-            admin={organization.createdBy}
+            membersCount={organization.employeesCount}
+            admin={`${organization.createdBy.firstName} ${organization.createdBy.lastName}`}
           />
         ))}
       </Box>

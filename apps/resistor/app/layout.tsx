@@ -4,6 +4,8 @@ import { theme } from '@bapana/theme';
 import { ThemeProvider, ToastProvider } from '@chakra-ui/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthProvider } from '../hooks/use-auth';
+import 'ag-grid-community/styles/ag-grid.css';
+import 'ag-grid-community/styles/ag-theme-alpine.css';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -26,6 +28,21 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,300;0,500;0,600;1,100;1,200;1,300;1,400;1,500;1,600&display=swap"
           rel="stylesheet"
         />
+        <style>
+          {`
+            * {
+              box-sizing: border-box;
+            }
+
+            .ag-theme-alpine {
+              --ag-border-color: #e2e8f0;
+              --ag-header-foreground-color: #553C9A;
+              --ag-header-background-color: #E9D8FD;
+              --ag-row-hover-color: #FAF5FF;
+              --ag-foreground-color: #718096;
+            }
+          `}
+        </style>
       </head>
       <body
         style={{
