@@ -78,7 +78,6 @@ const OrganizationDetailsPage = ({ params }) => {
 export default OrganizationDetailsPage;
 
 const StyledLink = styled(Link)`
-  text-decoration: none;
   color: var(--chakra-colors-gray-500);
 `;
 
