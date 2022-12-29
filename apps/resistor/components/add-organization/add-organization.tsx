@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { Box, FormLabel, Input } from '@chakra-ui/react';
+import { Box, FormLabel, Input, Stack } from '@chakra-ui/react';
 import Drawer from '../../components/drawer/drawer';
 import React, { useRef, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -13,6 +13,7 @@ interface IAddOrganizationProps {
 
 const AddOrganization = ({ isOpen, onClose }: IAddOrganizationProps) => {
   const [organizationName, setOrganizationName] = useState<string>('');
+  const [organizationManager, setOrganizationManager] = useState<string>('');
 
   const firstField = useRef();
 
@@ -59,6 +60,7 @@ const AddOrganization = ({ isOpen, onClose }: IAddOrganizationProps) => {
     // @ts-ignore
     organizationMutation.mutate({
       name: organizationName,
+      manager: organizationManager || 1,
     });
   };
 
@@ -70,19 +72,36 @@ const AddOrganization = ({ isOpen, onClose }: IAddOrganizationProps) => {
         title="Create new organization"
         onSubmit={handleOrganizationSave}
         initialFocusRef={firstField}
-        isDisabled={organizationMutation.isLoading || !organizationName}
+        isDisabled={
+          organizationMutation.isLoading ||
+          !organizationName
+        }
       >
-        <Box>
-          <FormLabel htmlFor="organizationName">Organization Name</FormLabel>
-          <Input
-            ref={firstField}
-            id="organizationName"
-            placeholder="Please enter organization name"
-            borderColor="#718096"
-            value={organizationName}
-            onChange={(event) => setOrganizationName(event.target.value)}
-          />
-        </Box>
+        <Stack spacing={4}>
+          <Box>
+            <FormLabel htmlFor="organizationName">Organization Name</FormLabel>
+            <Input
+              ref={firstField}
+              id="organizationName"
+              placeholder="Please enter organization name"
+              borderColor="#718096"
+              value={organizationName}
+              onChange={(event) => setOrganizationName(event.target.value)}
+            />
+          </Box>
+          {/* <Box>
+            <FormLabel htmlFor="organizationManager">
+              Organization Manager
+            </FormLabel>
+            <Input
+              id="organizationManager"
+              placeholder="Please enter organization manager"
+              borderColor="#718096"
+              value={organizationManager}
+              onChange={(event) => setOrganizationManager(event.target.value)}
+            />
+          </Box> */}
+        </Stack>
       </Drawer>
     </>
   );

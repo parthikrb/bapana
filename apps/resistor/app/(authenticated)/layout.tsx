@@ -4,15 +4,13 @@ import Header from '../../components/header/header';
 import SideNav from '../../components/sidenav/sidenav';
 import { Box } from '@chakra-ui/react';
 import { useAuth } from '../../hooks/use-auth';
-import { useRouter } from 'next/navigation';
+import Login from '../../components/login/login';
 
 const AuthenticatedLayout = ({ children }: { children: ReactNode }) => {
   const { isAuthenticated } = useAuth();
-  const router = useRouter();
 
   if (!isAuthenticated) {
-    router.replace('/');
-    return;
+    return <Login />;
   }
 
   return (

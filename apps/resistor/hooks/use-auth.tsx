@@ -95,10 +95,6 @@ export const AuthProvider = ({ children }) => {
             refresh: localStorage.getItem('refresh_token'),
           })
           .then((response) => {
-            console.log(
-              '🚀 ~ file: use-auth.tsx:98 ~ .then ~ response',
-              response
-            );
             setAuthToken(response.data.access);
             localStorage.setItem('token', response.data.access);
             localStorage.setItem('refresh_token', response.data.refresh);

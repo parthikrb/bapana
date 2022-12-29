@@ -2,8 +2,6 @@
 import baseAxios, { AxiosInstance, AxiosResponse } from 'axios';
 import { snakeToCamel } from './converter';
 
-console.log('process', process.env['NX_API_URL']);
-
 export const axios: AxiosInstance = baseAxios.create({
   baseURL: `${
     process.env['NX_API_URL']
