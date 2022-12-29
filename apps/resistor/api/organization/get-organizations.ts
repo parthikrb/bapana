@@ -1,7 +1,7 @@
 import { axios } from '../../utils';
 
-export const getOrganization = () => {
+export const getOrganizations = () => {
   return axios.get(`/organization`);
 };
 
-export default getOrganization;
+export default getOrganizations;

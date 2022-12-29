@@ -11,12 +11,21 @@ const TeamCard = ({ team }) => {
       p="16px"
       cursor="pointer"
       flexDirection="column"
+      ml="16px"
+      mb="16px"
       boxShadow="var(--chakra-shadows-base)"
       _hover={{
         boxShadow: 'var(--chakra-shadows-lg)',
       }}
     >
-      <Text fontSize="lg" fontWeight="bold" width={100} color="purple.500">
+      <Text
+        fontSize="lg"
+        fontWeight="bold"
+        width={100}
+        color="purple.500"
+        whiteSpace="nowrap"
+        textOverflow="ellipsis"
+      >
         {team.name}
       </Text>
 

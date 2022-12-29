@@ -1,6 +1,7 @@
 import { extendTheme } from '@chakra-ui/react';
 import { HEIGHT, WIDTH } from './constants';
 import { inputTheme } from './input-theme';
+import { selectTheme } from './select-theme';
 
 export const theme = extendTheme({
   global: {
@@ -48,6 +49,7 @@ export const theme = extendTheme({
         border: 'none',
       }
     },
+    Select: selectTheme
   },
 });
 

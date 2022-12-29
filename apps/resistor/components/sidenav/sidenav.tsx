@@ -4,6 +4,7 @@ import MenuItem from './menu-item';
 import { Organization } from '@styled-icons/octicons';
 import { CalendarWeek } from '@styled-icons/bootstrap';
 import { CollapseLeft, ExpandLeft } from '@styled-icons/open-iconic';
+import { PeopleTeam } from '@styled-icons/fluentui-system-regular';
 
 const SideNav = () => {
   const [isExpanded, setIsExpanded] = React.useState(true);
@@ -13,6 +14,10 @@ const SideNav = () => {
 
   const menuList = [
     { icon: <Organization height={iconHeight} />, name: 'Organizations' },
+    {
+      icon: <PeopleTeam height={iconHeight} />,
+      name: 'Teams',
+    },
     {
       icon: <CalendarWeek height={iconHeight} />,
       name: 'Capacity Planner',

@@ -8,22 +8,19 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { Add } from 'styled-icons/fa-solid';
-import AddOrganization from '../../../components/add-organization/add-organization';
 import { useQuery } from '@tanstack/react-query';
 import { APIKEYS } from '../../../utils';
-import OrganizationCard from '../../../components/organization-card/organization-card';
-import { getOrganizations } from '../../../api';
+import { getTeams } from '../../../api';
+import AddTeam from '../../../components/add-team/add-team';
+import TeamCard from '../../../components/team-card/team-card';
 
-const OrganizationPage = () => {
+const TeamsPage = () => {
   const { onOpen, isOpen, onClose } = useDisclosure();
   const toast = useToast();
 
-  const {
-    data: organizations,
-    isError,
-  } = useQuery({
-    queryKey: [APIKEYS.ORGANIZATION],
-    queryFn: getOrganizations,
+  const { data: teams, isError } = useQuery({
+    queryKey: [APIKEYS.TEAM],
+    queryFn: getTeams,
   });
 
   useEffect(() => {
@@ -40,7 +37,7 @@ const OrganizationPage = () => {
 
   return (
     <Box position="relative" w="100%" h="calc(100vh - 60px)">
-      <AddOrganization isOpen={isOpen} onClose={onClose} />
+      <AddTeam isOpen={isOpen} onClose={onClose} />
       <Box display="flex">
         <Text
           fontSize="2xl"
@@ -49,22 +46,16 @@ const OrganizationPage = () => {
           ml="16px"
           mt="16px"
         >
-          Organization
+          Team
         </Text>
       </Box>
-      <Box display="flex" flexDirection="row" ml="16px" flexWrap="wrap">
-        {organizations?.data?.map((organization) => (
-          <OrganizationCard
-            key={organization.id}
-            id={organization.id}
-            name={organization.name}
-            membersCount={organization.employeesCount}
-            admin={`${organization.createdBy.firstName} ${organization.createdBy.lastName}`}
-          />
+      <Box display="flex" flexDirection="row" flexWrap="wrap">
+        {teams?.data?.map((team) => (
+          <TeamCard key={team.id} team={team} />
         ))}
       </Box>
       <IconButton
-        aria-label="Add Organization"
+        aria-label="Add Team"
         icon={<Add height={24} />}
         isRound={true}
         position="absolute"
@@ -76,4 +67,4 @@ const OrganizationPage = () => {
   );
 };
 
-export default OrganizationPage;
+export default TeamsPage;

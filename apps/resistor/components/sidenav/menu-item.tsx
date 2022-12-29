@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react';
 import { Box, Text } from '@chakra-ui/react';
 import Link from 'next/link';
 import styled from 'styled-components';
+import { useRouter } from 'next/navigation';
 
 interface MenuItemProps {
   icon: ReactNode;
@@ -10,6 +11,8 @@ interface MenuItemProps {
 }
 
 const MenuItem = ({ icon, name, isExpanded }: MenuItemProps) => {
+  const router = useRouter();
+
   return (
     <Box
       w="100%"
@@ -20,6 +23,8 @@ const MenuItem = ({ icon, name, isExpanded }: MenuItemProps) => {
         bg: 'purple.600',
       }}
       alignItems="center"
+      cursor="pointer"
+      onClick={() => router.push(`/${name.replaceAll(' ', '-').toLowerCase()}`)}
     >
       <Box as="span" ml="16px">
         {icon}
