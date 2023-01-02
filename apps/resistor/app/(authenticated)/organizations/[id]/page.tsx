@@ -67,7 +67,7 @@ const OrganizationDetailsPage = ({ params }) => {
             <OrganizationTeams teams={organization?.data?.teams} />
           </TabPanel>
           <TabPanel>
-            <OrganizationEmployees employees={organization?.data?.employees} />
+            <OrganizationEmployees employees={organization?.data?.employees} organizationId={id}/>
           </TabPanel>
         </TabPanels>
       </Tabs>

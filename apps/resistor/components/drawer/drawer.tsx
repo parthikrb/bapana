@@ -41,7 +41,11 @@ const Drawer = ({
         closeOnOverlayClick={true}
       >
         <DrawerOverlay />
-        <DrawerContent>
+        <DrawerContent
+          style={{
+            width: '350px',
+          }}
+        >
           <DrawerCloseButton />
           <DrawerHeader borderBottomWidth="1px" color="gray.500">
             {title}

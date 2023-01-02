@@ -22,6 +22,7 @@ export const theme = extendTheme({
         height: HEIGHT,
         border: 'none',
         textTransform: 'uppercase',
+        cursor: 'pointer',
       },
       variants: {
         outline: {
@@ -49,7 +50,7 @@ export const theme = extendTheme({
         border: 'none',
       }
     },
-    Select: selectTheme
+    Select: selectTheme,
   },
 });
 

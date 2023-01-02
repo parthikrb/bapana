@@ -11,6 +11,7 @@ const Loader = () => {
       style={{
         background: 'rgba(255, 255, 255, 0.1)',
       }}
+      position="absolute"
     >
       <Spinner
         color="purple.500"
