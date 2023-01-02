@@ -39,7 +39,7 @@
     "@svgr/rollup": "^6.1.2",
     "@swc/core": "^1.2.173",
     "@swc/helpers": "~0.4.11",
-    "@swc/jest": "0.2.20",
+    "@swc/jest": "0.2.24",
     "@testing-library/react": "13.4.0",
     "@types/jest": "28.1.1",
     "@types/node": "16.11.7",
