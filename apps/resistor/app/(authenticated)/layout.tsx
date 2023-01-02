@@ -2,7 +2,7 @@
 import React, { ReactNode } from 'react';
 import Header from '../../components/header/header';
 import SideNav from '../../components/sidenav/sidenav';
-import { Box } from '@chakra-ui/react';
+import { Box, Container } from '@chakra-ui/react';
 import { useAuth } from '../../hooks/use-auth';
 import Login from '../../components/login/login';
 
@@ -18,7 +18,7 @@ const AuthenticatedLayout = ({ children }: { children: ReactNode }) => {
       <Header />
       <Box display="flex" flexDirection="row">
         <SideNav />
-        <Box w={'100%'}>{children}</Box>
+        <Container maxW="container.lg" w="100%">{children}</Container>
       </Box>
     </>
   );
