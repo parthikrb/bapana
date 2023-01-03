@@ -27,14 +27,14 @@
     "**/*.js",
     "**/*.jsx",
     "next-env.d.ts",
-    ".next/types/**/*.ts",
-    "../../apps/resistor/.next/types/**/*.ts",
-    "../../dist/apps/resistor/.next/types/**/*.ts"
+    "../../dist/apps/resistor/.next/types/**/*.ts",
+    "../../apps/resistor/.next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",
     "jest.config.ts",
     "src/**/*.spec.ts",
-    "src/**/*.test.ts"
+    "src/**/*.test.ts",
+    "../../dist/apps/resistor/.next/types/**/*.ts"
   ]
 }
