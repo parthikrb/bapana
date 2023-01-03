@@ -15,6 +15,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useAuth } from '../../hooks/use-auth';
 import { useRouter } from 'next/navigation';
 import React, { useCallback, useEffect, useState } from 'react';
+import { isValidForm } from '@resistor/utils';
 
 const initialFormValues = {
   firstName: '',
@@ -143,6 +144,7 @@ const JoinPage = () => {
             colorScheme="purple"
             type="submit"
             onClick={handleJoinEmployee}
+            disabled={!isValidForm(joinForm)}
           >
             Join
           </Button>
