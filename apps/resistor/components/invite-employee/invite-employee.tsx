@@ -1,5 +1,5 @@
 import { FormControl, FormLabel, Input, useToast } from '@chakra-ui/react';
-import { inviteEmployee } from '@resistor/api';
+import { IInviteEmployeePayload, inviteEmployee } from '@resistor/api';
 import { useMutation } from '@tanstack/react-query';
 import React, { memo, useCallback, useRef, useState } from 'react';
 import Drawer from '../drawer/drawer';
@@ -22,7 +22,7 @@ const InviteEmployee = ({
   const toast = useToast();
 
   const inviteEmployeeMutation = useMutation(
-    (data) => {
+    (data: IInviteEmployeePayload) => {
       return inviteEmployee(data);
     },
     {
@@ -41,7 +41,6 @@ const InviteEmployee = ({
   );
 
   const handleInviteEmployee = useCallback(() => {
-    // @ts-ignore
     inviteEmployeeMutation.mutate({
       email,
       organization: Number(organizationId),
