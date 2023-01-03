@@ -1,11 +1,10 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import baseAxios, { AxiosInstance, AxiosResponse } from 'axios';
-import { snakeToCamel } from './converter';
+import { snakeToCamel, camelToSnake } from './converter';
 
 export const axios: AxiosInstance = baseAxios.create({
-  baseURL: `${
-    process.env['NX_API_URL']
-  }`,
+  baseURL: `${process.env['NX_API_URL']}`,
   headers: {
     'Content-Type': 'application/json',
     accept: 'application/json',
@@ -24,6 +23,9 @@ axios.interceptors.request.use((request) => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     request.headers!['Authorization'] = `Bearer ${token}`;
   }
+
+  request.data = camelToSnake(request.data);
+
   return request;
 });
 

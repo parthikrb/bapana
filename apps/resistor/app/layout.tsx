@@ -3,9 +3,11 @@
 import { theme } from '@bapana/theme';
 import { ThemeProvider, ToastProvider } from '@chakra-ui/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { AuthProvider } from '../hooks/use-auth';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
+import { ReactNode } from 'react';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -14,11 +16,8 @@ const queryClient = new QueryClient({
     },
   },
 });
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en-US">
       <head>
@@ -61,6 +60,7 @@ export default function RootLayout({
           >
             <QueryClientProvider client={queryClient}>
               <AuthProvider>{children}</AuthProvider>
+              <ReactQueryDevtools initialIsOpen={false} />
             </QueryClientProvider>
           </ToastProvider>
         </ThemeProvider>

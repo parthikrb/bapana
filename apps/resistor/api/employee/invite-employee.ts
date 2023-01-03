@@ -5,7 +5,7 @@ export interface IInviteEmployeePayload {
   organization: number;
 }
 
-export const inviteEmployee = (data) => {
+export const inviteEmployee = (data: IInviteEmployeePayload) => {
   return axios.post(`invite-employee/`, data);
 };
 
