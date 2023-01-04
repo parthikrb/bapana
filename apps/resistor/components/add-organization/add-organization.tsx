@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Box, FormLabel, Input, Stack } from '@chakra-ui/react';
-import Drawer from '../../components/drawer/drawer';
+import Drawer from '../../hocs/drawer/drawer';
 import React, { useRef, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { axios, APIKEYS } from '../../utils';

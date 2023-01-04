@@ -11,11 +11,12 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { IJoinEmployeePayload, joinEmployee } from '@resistor/api';
-import { useMutation } from '@tanstack/react-query';
-import { useAuth } from '../../hooks/use-auth';
-import { useRouter } from 'next/navigation';
-import React, { useCallback, useEffect, useState } from 'react';
 import { isValidForm } from '@resistor/utils';
+import { useMutation } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
+import { useCallback, useEffect, useState } from 'react';
+import AuthWrapper from '../../hocs/auth-wrapper/auth-wrapper';
+import { useAuth } from '../../hooks/use-auth';
 
 const initialFormValues = {
   firstName: '',
@@ -82,77 +83,90 @@ export const EmployeeJoin = () => {
   }, [joinForm, invitationCode]);
 
   return (
-    <Box bg="purple.500" display="flex" h="100vh" w="100vw">
+    <AuthWrapper>
       <Box
-        h="fit-content"
-        bg="white"
-        borderRadius="md"
-        margin="auto"
-        p={4}
-        px={8}
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+        height="100%"
       >
         <Heading textAlign="center" color="gray.500" margin={4}>
-          Join Resistor
+          Join
         </Heading>
         <Stack spacing={4}>
           <FormControl>
-            <FormLabel htmlFor="firstName">Firstname</FormLabel>
             <Input
               id="firstName"
               name="firstName"
               value={joinForm.firstName}
               onChange={handleJoinFormChange}
+              placeholder="First Name"
             />
           </FormControl>
           <FormControl>
-            <FormLabel htmlFor="lastName">Lastname</FormLabel>
             <Input
               id="lastName"
               name="lastName"
               value={joinForm.lastName}
               onChange={handleJoinFormChange}
+              placeholder="Last Name"
             />
           </FormControl>
-          <FormControl>
-            <FormLabel htmlFor="email">Email</FormLabel>
+          <FormControl
+            isRequired
+            isInvalid={
+              joinForm.email.length > 0 && !joinForm.email.includes('@')
+            }
+          >
             <Input
               id="email"
               type="email"
               name="email"
               value={joinForm.email}
               onChange={handleJoinFormChange}
+              placeholder="Email"
             />
           </FormControl>
           <FormControl>
-            <FormLabel htmlFor="username">Username</FormLabel>
             <Input
               id="username"
               name="username"
               value={joinForm.username}
               onChange={handleJoinFormChange}
+              placeholder="Username"
             />
           </FormControl>
-          <FormControl>
-            <FormLabel htmlFor="password">Password</FormLabel>
+          <FormControl
+            isInvalid={
+              joinForm.password.length > 0 && joinForm.password.length < 8
+            }
+          >
             <Input
               id="password"
               type="password"
               name="password"
               value={joinForm.password}
               onChange={handleJoinFormChange}
+              placeholder="Password (min 8 characters)"
             />
           </FormControl>
           <Button
             colorScheme="purple"
             type="submit"
             onClick={handleJoinEmployee}
-            disabled={!isValidForm(joinForm)}
+            disabled={
+              !isValidForm(joinForm) ||
+              !joinForm.email.includes('@') ||
+              joinEmployeeMutation.isLoading ||
+              joinForm.password.length < 8
+            }
           >
             Join
           </Button>
         </Stack>
       </Box>
-    </Box>
+    </AuthWrapper>
   );
 };
 

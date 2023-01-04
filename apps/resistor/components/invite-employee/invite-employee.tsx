@@ -2,7 +2,7 @@ import { FormControl, FormLabel, Input, useToast } from '@chakra-ui/react';
 import { IInviteEmployeePayload, inviteEmployee } from '@resistor/api';
 import { useMutation } from '@tanstack/react-query';
 import React, { memo, useCallback, useRef, useState } from 'react';
-import Drawer from '../drawer/drawer';
+import Drawer from '../../hocs/drawer/drawer';
 
 interface IInviteEmployeeProps {
   isOpen: boolean;
