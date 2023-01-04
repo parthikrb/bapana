@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   createContext,
   useContext,
@@ -27,6 +27,8 @@ export const AuthProvider = ({ children }) => {
   const [authToken, setAuthToken] = useState(null);
   const [userId, setUserId] = useState(null);
 
+  const queryClient = useQueryClient();
+
   const toast = useToast();
 
   const loginMutation = useMutation({
@@ -51,7 +53,8 @@ export const AuthProvider = ({ children }) => {
     setUserId(null);
     localStorage.removeItem('token');
     setIsAuthenticated(false);
-  }, []);
+    queryClient.clear();
+  }, [queryClient]);
 
   useEffect(() => {
     if (loginMutation.isError) {

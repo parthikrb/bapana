@@ -2,9 +2,15 @@ import React from 'react';
 import { Avatar, AvatarGroup, Box, Text } from '@chakra-ui/react';
 import { Power } from '@styled-icons/typicons';
 import { useAuth } from '../../hooks/use-auth';
+import { APIKEYS } from '../../utils/api-constants';
+import { getMe } from '@resistor/api';
+import { useQuery } from '@tanstack/react-query';
 
 const Header = () => {
   const { logout } = useAuth();
+
+  const { data: me } = useQuery([APIKEYS.ME], getMe);
+
   return (
     <Box
       w="100%"
@@ -29,7 +35,11 @@ const Header = () => {
       </Text>
 
       <AvatarGroup size="md" max={2}>
-        <Avatar name="Parthiban Baskar" bg="purple.500" color="white" />
+        <Avatar
+          name={me?.data?.firstName + ' ' + me?.data?.lastName}
+          bg="purple.500"
+          color="white"
+        />
         <Avatar
           bg="red.500"
           icon={<Power height={36} />}
